@@ -5,7 +5,9 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public abstract class BaseActivity<P> extends AppCompatActivity {
+import com.example.two.baseApi.BaseVeiw;
+
+public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements BaseVeiw {
     protected P presenter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -13,6 +15,7 @@ public abstract class BaseActivity<P> extends AppCompatActivity {
         setContentView(setViewId());
         if (presenter==null){
             presenter=getPresenter();
+            presenter.onAtton(this);
         }
         initView();
         initData();
